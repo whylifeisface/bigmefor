@@ -46,7 +46,7 @@ const rule = {
         { min: 3, max: 15, message: '长度在 3 到 10 个字符', trigger: 'blur' }
     ],
     rePassword: [{
-        validator: (rule, value, callback) => {
+        validator: (rule: any, value: any, callback: any) => {
             if (value !== form.value.password) {
                 callback(new Error('两次密码输入不一致'))
             } else if (value == '' || value == ' ') {

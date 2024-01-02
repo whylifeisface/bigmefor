@@ -41,7 +41,7 @@ export const rePassword = (map: Map<string, string>) => {
 	return request.get('/user/updatePwd', map as AxiosRequestConfig<any>);
 }
 
-interface UserInfoType {
+export interface UserInfoType {
 	id: number,
 	username: string,
 	nickname: string,
