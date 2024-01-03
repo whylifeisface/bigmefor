@@ -49,11 +49,11 @@ const changePassword = () => {
 	map.set('re_pwd',passwordForm.value.rePassword)
 	
 	rePassword(map).then((res) => {
-			if (res.code === 0) {
+			if (res.status === 0) {
 				router.push('/login')
-				ElMessage.success(res.msg)
+				ElMessage.success(res.data)
 			}else {
-				ElMessage.error(res.msg)
+				ElMessage.error(res.data)
 			}
 	})
 

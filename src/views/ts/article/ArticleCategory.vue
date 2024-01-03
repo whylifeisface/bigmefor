@@ -108,12 +108,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-import { articleCategoryService, addCategoryService, putCategoryService, deleteCategoryService } from '../../../api/ts/category'
-import { userInfoStoreService } from '../../../stores/userInfoStore'
+import { articleCategoryService, addCategoryService, putCategoryService, deleteCategoryService, ICategory } from '../../../api/ts/category'
+// import { userInfoStoreService } from '../../../stores/userInfoStore'
 
-
-
-const userInfoStore = userInfoStoreService()
+// const userInfoStore = userInfoStoreService()
 
 const dialogVisible = ref(true);
 onMounted(() => {
@@ -140,13 +138,13 @@ import { ElMessage } from 'element-plus'
 const ensure = async () => {
     if (status.value == 0) {
         // 添加
-        let result = await addCategoryService(form.value.categoryName, form.value.categoryAlias, userInfoStore.info.id);
-        ElMessage.success(result.message)
+        let result = await addCategoryService(form.value);
+        ElMessage.success(result.data)
         articleCategoryList()
         dialogVisible.value = false;
     } else {
-        let result = await putCategoryService(form.value.id, form.value.categoryName, form.value.categoryAlias);
-        ElMessage.success(result.message)
+        let result = await putCategoryService(form.value);
+        ElMessage.success(result.data)
         articleCategoryList()
         dialogVisible.value = false;
     }
@@ -154,7 +152,7 @@ const ensure = async () => {
 }
 const status = ref(0)
 
-const form = ref({
+const form = ref<ICategory>({
     id: 999,
     categoryName: "",
     categoryAlias: "",
@@ -162,7 +160,7 @@ const form = ref({
 const articleCategoryList = () => {
 
     articleCategoryService().then((res) => {
-        if (res.code === 0) {
+        if (res.status === 0) {
             tableData.value = res.data
             console.log(res.data);
             console.log(tableData.value);
@@ -179,10 +177,10 @@ const getTitle = () => {
     }
 }
 const tableData = ref([])
-
-const del = (row) => {
+//TODO 
+const del = (row: any) => {
     deleteCategoryService(row.id).then((res) => {
-        if (res.code === 0) {
+        if (res.status === 0) {
             // ElMessage.success(res.message)
             // ElMessage.confirm(res.message)
             articleCategoryList()
@@ -193,8 +191,8 @@ const del = (row) => {
     articleCategoryList()
 
 }
-
-const edit = (row) => {
+//TODO
+const edit = (row: any) => {
     dialogVisible.value = true;
     getTitle()
     Object.assign(form.value, row)

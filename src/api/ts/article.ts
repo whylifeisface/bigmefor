@@ -4,8 +4,8 @@ export const deleteArticleService = (id: number) => {
 	
 	return request.delete("/article?id=" + id)
 }
-interface ArticleParams {
-	id: number,
+export interface ArticleParams {
+	id?: number,
 	title: string,
 	content: string,
 	coverImg: string,
@@ -17,11 +17,11 @@ export const addArticleService = (ArticleParams: ArticleParams) => {
 	const { title, content, coverImg, state, categoryId } = ArticleParams
 	return request.post("/article/add", { title, content, coverImg, state, categoryId })
 }
-interface ArticleListParams {
+export interface ArticleListParams {
 	pageNum: number,
 	pageSize: number,
-	state: number,
-	categoryId: number
+	state?: number,
+	categoryId?: number
 }
 export const ArticleListService = (articleList: ArticleListParams) => { 
 

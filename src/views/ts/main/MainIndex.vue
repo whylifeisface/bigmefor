@@ -28,7 +28,7 @@
                         <el-dropdown placement="bottom-end" @command="handleCommand">
                             111
                             <span>
-                                <el-avatar :src=" userInfoStore.info.userPic?userInfoStore.info.userPic:''"></el-avatar>
+                                <el-avatar :src="userInfoStore.info.avatar ? userInfoStore.info.avatar:''"></el-avatar>
                                 <el-icon>
                                     <CaretBootom></CaretBootom>
                                 </el-icon>
@@ -72,11 +72,11 @@ const userInfoStore = userInfoStoreService()
 //     userInfoStore.setInfo(result.data)
 // }
 const router = useRouter()
-const handleCommand = (command) => {
+const handleCommand = (command: string) => {
     //判断指令
 if(command === "logout"){
     ElMessageBox
-    .confirm('你确认要退出吗','温馨提示',{confirmBUttonText: '确认', cancelButtonText: '取消',type: 'warning'})
+    .confirm('你确认要退出吗','温馨提示',{confirmButtonText: '确认', cancelButtonText: '取消',type: 'warning'})
     .then(async () => {
         //退出登录
     //清空pinia中的token及其个人信息

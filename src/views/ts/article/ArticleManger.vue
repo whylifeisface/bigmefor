@@ -97,7 +97,7 @@
             <el-col :offset="12">
                 <el-pagination 
                 @current-change="ArticleList()"
-                @size-change="(num) => pagination.pageSize = num"
+                @size-change="(num: number) => pagination.pageSize = num"
                 v-model:current-page="pagination.currentPage" page-count="pagination.pageSize" layout="jumper,sizes, prev, pager, next" :total="100" />
             </el-col>
 
@@ -149,11 +149,18 @@
 
 <script setup lang="ts">
 import { ref, nextTick, onMounted } from 'vue'
-import { Plus } from '@element-plus/icons-vue'
-import { addArticleService, ArticleListService } from "../../../api/ts/article"
+import { addArticleService, ArticleListService, ArticleParams } from "../../../api/ts/article"
 import Editor from '@tinymce/tinymce-vue'
+import { ElMessage } from 'element-plus'
+import { Edit, Delete, Plus } from '@element-plus/icons-vue' 
+//TODO
+const categoryEdit = (row: any) => {
 
+}
 
+const categoryDelete = (row: any) => {
+
+}
 const pagination = ref({
     currentPage: 0,
     pageSize: 0,
@@ -170,7 +177,8 @@ const token = ref(localStorage.getItem('token'))
 
 const ArticleList = () => {
     console.log(111);
-    ArticleListService(pagination.value.currentPage, pagination.value.pageSize, )
+
+    ArticleListService({pageNum: pagination.value.currentPage, pageSize: pagination.value.pageSize})
 }
 onMounted(() => {
     ArticleList()
@@ -179,27 +187,24 @@ const mangerData = ref([])
 
 const drawer = ref(true)
 
-const categoryDrawer = ref({
+const categoryDrawer = ref<ArticleParams>({
     content: "",
     title: "",
     categoryId: 0,
     coverImg: "",
-
+    state: 0
 })
-const addManger = async (state) => {
+const addManger = async (state: number) => {
     await nextTick()
-
-    const res = addArticleService(
-        categoryDrawer.value.title,
-        categoryDrawer.value.content,
-        categoryDrawer.value.coverImg,
-        state,
-        categoryDrawer.value.categoryId
+    categoryDrawer.value.state = state
+    const res = await addArticleService(
+        categoryDrawer.value
     )
-    if (res.code === 0) {
-        ElMessage.success(res.message)
+    
+    if (res.status === 0) {
+        ElMessage.success(res.data)
     } else {
-        ElMessage.error(res.message)
+        ElMessage.error(res.data)
 
     }
 }
@@ -208,8 +213,8 @@ const categorySearch = () => {
     categoryReset()
 }
 
-
-const uploadSuccess = (res) => {
+//TODO
+const uploadSuccess = (res: any) => {
     console.log(res);
     if (res.code === 0) {
         categoryDrawer.value.coverImg = res.data.links.url
@@ -222,8 +227,8 @@ const uploadSuccess = (res) => {
 // const state = ref("")
 
 const categoryReset = () => {
-    state.value = ""
-    categoryId.value = ""
+    // state.value = ""
+    // categoryId.value = ""
 }
 const categorys = [{
         id: 0,

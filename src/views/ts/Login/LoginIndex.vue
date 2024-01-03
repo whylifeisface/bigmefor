@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 import {ref, watch} from 'vue'
 // import { registerUser } from '@/api/user'
 import LoginIndex from "@/components/login/LoginIndex.vue";

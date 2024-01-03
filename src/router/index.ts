@@ -16,7 +16,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-
     },
     {
       path: '/register',
@@ -27,6 +26,16 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
+    },
+    {
+      path: '/ts/register',
+      name: 'register-ts',
+      component: import('../views/ts/Login/index.vue')
+    },
+    {
+      path: '/ts/login',
+      name: 'login-ts',
+      component: import('../views/ts/Login/index.vue')
     },
     {
       path: '/main',
@@ -52,6 +61,33 @@ const router = createRouter({
         {
           path: '/user/avatar',
           component: UserAvatar
+        },
+      ]
+    },
+    {
+      path: '/main/ts',
+      name: 'main-ts',
+      component: MainView,
+      children: [
+        {
+          path: '/article/manger',
+          component: import('../views/ts/article/ArticleManger.vue'),
+        },
+        {
+          path: '/article/category',
+          component: import('../views/ts/article/ArticleCategory.vue'),
+        },
+        {
+          path: '/user/info',
+          component: import('../views/ts/user/UserInfo.vue'),
+        },
+        {
+          path: '/user/resetpassword',
+          component: import('../views/ts/user/UserResetPassword.vue'),
+        },
+        {
+          path: '/user/avatar',
+          component: import('../views/ts/user/UserAvatar.vue'),
         },
       ]
     },

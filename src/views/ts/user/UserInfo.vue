@@ -44,9 +44,9 @@ const rules = {
 
 
 onMounted(() => {
-		if (userInfoStore.info.value == undefined) {
+		if (userInfoStore.info == undefined) {
 			getUserInfo().then((res) => {
-                    if(res.code === 0)
+                    if(res.status === 0)
                         userInfoStore.setInfo(res.data)
                   })
 		}
@@ -61,14 +61,14 @@ const submit = async () => {
 			// 验证通过
 			console.log('验证通过');
 			const id = userInfoStore.info.id
-			const userInfo = userInfoStore.info.value
+			const userInfo = userInfoStore.info
 			// const {id, } = userInfo;
 			// const userInfoForm = {id, userInfo.username, userInfo.nickname, userInfo.email}
 			const result = await updateUserInfo(
 				{id, username: userInfo.username, avatar: userInfo.avatar, nickname: userInfo.nickname, email: userInfo.email})
-			if (result.code === 0) {
+			if (result.status === 0) {
 				getUserInfo().then((res) => {
-                    if(res.code === 0)
+                    if(res.status === 0)
                         userInfoStore.setInfo(res.data)
 					console.log('修改成功');
 

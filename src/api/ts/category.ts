@@ -12,13 +12,13 @@ export const deleteCategoryService = (id: number) => {
 
 	return request.delete(`/category/delete?id=${id}`)
 }
-interface ICategory {
+export interface ICategory {
 	categoryName: string,
 	categoryAlias: string,
 	// createUser: number,
 	// createTime: string,
 	// updateUser: number,
-	updateTime: string,
+	updateTime?: string,
 	id: number
 }
 export const addCategoryService = (iCategory: ICategory) => {
