@@ -48,12 +48,8 @@ const onSubmit = () => {
                     localStorage.setItem('token', res.data)
 
                   ElMessage.success('登录成功')
-                  getUserInfo().then((res) => {
-                    if(res.status === 0)
-                        userInfoStore.setInfo(res.data)
-                  })
                   router.push('/')
-                  console.log(userInfoStore.info);
+
                 }
             })
             

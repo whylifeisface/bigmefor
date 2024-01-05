@@ -23,12 +23,18 @@ export interface ArticleListParams {
 	state?: number,
 	categoryId?: number
 }
-export const ArticleListService = (articleList: ArticleListParams) => { 
+
+export type ReturnAxios = {
+	code: number,
+	data: any,
+	msg: string
+}
+export const ArticleListService  = (articleList: ArticleListParams) => { 
 
 	if (articleList.categoryId == undefined) {
-		request.get(`/article/list?pageNum=${articleList.pageNum}&pageSize=${articleList.pageSize}`)
+		return	request.get<any,ReturnAxios>(`/article/list?pageNum=${articleList.pageNum}&pageSize=${articleList.pageSize}`)
 	} else {
-		return request.get(`/article/list?pageNum=${articleList.pageNum}&pageSize=${articleList.pageSize}&state=${articleList.state}&categoryId=${articleList.categoryId}`)
+		return request.get<any,ReturnAxios>(`/article/list?pageNum=${articleList.pageNum}&pageSize=${articleList.pageSize}&state=${articleList.state}&categoryId=${articleList.categoryId}`)
 	}
 
 }

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { ref } from "vue"
-import  { UserInfoType } from "@/api/ts/user"
+import  { getUserInfo, type UserInfoType } from "@/api/ts/user"
 export const userInfoStoreService = defineStore("userinfo", () => {
 
 
@@ -20,7 +20,21 @@ export const userInfoStoreService = defineStore("userinfo", () => {
 		info.value = data
 
 	}
+	function isEmpty(){
+		//判断info是否为空
+		return info.value.id === 0 && info.value.nickname == ""
+	}
+	const getInfo = (refresh: boolean = false) => {
 
+		if (isEmpty() || refresh) {
+			            getUserInfo().then((res) => {
+                    if(res.status === 0)
+                        setInfo(res.data)
+                  })
+		}
+
+		return info.value
+	}
 	const removeInfo = () => {
 		info.value = {
 			id: 0,
@@ -33,7 +47,7 @@ export const userInfoStoreService = defineStore("userinfo", () => {
 		}
 	}
 
-	return { info, setInfo, removeInfo }
+	return { info, setInfo, removeInfo, getInfo }
 },
 //  { persist: true }
  )

@@ -1,5 +1,5 @@
 import request from "@/util/ts/request"
-import { AxiosRequestConfig } from "axios"
+// import { AxiosRequestConfig } from "axios"
 
 export interface RegisterData {
 	username: string,
@@ -36,10 +36,24 @@ export const getUserInfo = () => {
 	return request.get('/user/userInfo');
 
 }
-export const rePassword = (map: Map<string, string>) => {
+export const rePassword = (params: Map<string, string>) => {
 		// 强转 没办法
-	return request.get('/user/updatePwd', map as AxiosRequestConfig<any>);
+
+		// const obj = {...Object.create(null), ...params}
+		const old_pwd = params.get("old_pwd");
+		const new_pwd = params.get("new_pwd");
+		const re_pwd = params.get("re_pwd");
+		// map.set('old_pwd',passwordForm.value.oldPassword)
+		// map.set('new_pwd',passwordForm.value.password)
+		// map.set('re_pwd',passwordForm.value.rePassword)	
+	return request.post<any, any>(`/user/updatePwd?old_pwd=${old_pwd}&new_pwd=${new_pwd}&re_pwd=${re_pwd}`);
 }
+
+export const updateAvatar = (imageUrl: string) => {
+	return request.post(`/user/updateAvatar?avatar=${imageUrl}`);
+}
+
+
 
 export interface UserInfoType {
 	id: number,

@@ -30,12 +30,12 @@ const router = createRouter({
     {
       path: '/ts/register',
       name: 'register-ts',
-      component: import('../views/ts/Login/index.vue')
+      component: import('../views/ts/Login/LoginIndex.vue')
     },
     {
       path: '/ts/login',
       name: 'login-ts',
-      component: import('../views/ts/Login/index.vue')
+      component: import('../views/ts/Login/LoginIndex.vue')
     },
     {
       path: '/main',
@@ -67,26 +67,26 @@ const router = createRouter({
     {
       path: '/main/ts',
       name: 'main-ts',
-      component: MainView,
+      component:  import('../views/ts/main/MainIndex.vue'),
       children: [
         {
-          path: '/article/manger',
+          path: '/ts/article/manger',
           component: import('../views/ts/article/ArticleManger.vue'),
         },
         {
-          path: '/article/category',
+          path: '/ts/article/category',
           component: import('../views/ts/article/ArticleCategory.vue'),
         },
         {
-          path: '/user/info',
+          path: '/ts/user/info',
           component: import('../views/ts/user/UserInfo.vue'),
         },
         {
-          path: '/user/resetpassword',
+          path: '/ts/user/resetpassword',
           component: import('../views/ts/user/UserResetPassword.vue'),
         },
         {
-          path: '/user/avatar',
+          path: '/ts/user/avatar',
           component: import('../views/ts/user/UserAvatar.vue'),
         },
       ]

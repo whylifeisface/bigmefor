@@ -178,7 +178,15 @@ const token = ref(localStorage.getItem('token'))
 const ArticleList = () => {
     console.log(111);
 
-    ArticleListService({pageNum: pagination.value.currentPage, pageSize: pagination.value.pageSize})
+    ArticleListService({pageNum: pagination.value.currentPage, pageSize: pagination.value.pageSize}).then(result  => {
+        console.log(result);
+        
+        if(result.code == 0){
+            mangerData.value = result.data.items
+            pagination.value.total = result.data.total
+            console.log(mangerData.value ," m");
+        }
+    })
 }
 onMounted(() => {
     ArticleList()

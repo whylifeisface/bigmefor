@@ -5,14 +5,14 @@
         <el-aside class="aside" width="200px">
             <div class="bg"></div>
             <el-menu router active-text-color="#ff04b" background-color="#232323" text-color="#fff">
-                <el-menu-item index="/article/category"> <i></i>文章分类 </el-menu-item>
-                <el-menu-item index="/article/manger"> 文章管理 </el-menu-item>
+                <el-menu-item index="/ts/article/category"> <i></i>文章分类 </el-menu-item>
+                <el-menu-item index="/ts/article/manger"> 文章管理 </el-menu-item>
 
                 <el-submenu>
                     <el-submenu-title>个人中心 </el-submenu-title>
-                    <el-menu-item index="/user/info"> 基本资料 </el-menu-item>
-                    <el-menu-item index="/user/avatar"> 更换头像 </el-menu-item>
-                    <el-menu-item index="/user/resetpassword"> 重置密码 </el-menu-item>
+                    <el-menu-item index="/ts/user/info"> 基本资料 </el-menu-item>
+                    <el-menu-item index="/ts/user/avatar"> 更换头像 </el-menu-item>
+                    <el-menu-item index="/ts/user/resetpassword"> 重置密码 </el-menu-item>
 
                 </el-submenu>
             </el-menu>
@@ -21,14 +21,18 @@
             <el-header style="color: black;">
                 <el-row>
                     <el-col :span="4">
-                        当前用户: <bold> {{ userInfoStore.info.nickname }}</bold>
+                        当前用户: <strong> {{ userInfoStore.getInfo().username }}</strong>
                     </el-col>
                     <el-col :offset="15" :span="4">
                         <el-icon type="User"></el-icon>
                         <el-dropdown placement="bottom-end" @command="handleCommand">
+                            <!-- {{ userInfoStore.getInfo().avatar }} -->
+                            111
+                            <img :src="userInfoStore.getInfo().avatar" alt="o">
                             111
                             <span>
-                                <el-avatar :src="userInfoStore.info.avatar ? userInfoStore.info.avatar:''"></el-avatar>
+
+                                <el-avatar :src="userInfoStore.getInfo().avatar ? userInfoStore.getInfo().avatar:''"></el-avatar>
                                 <el-icon>
                                     <CaretBootom></CaretBootom>
                                 </el-icon>
@@ -66,11 +70,26 @@
 import { User, Crop, EditPen, SwitchButton } from '@element-plus/icons-vue'
 import { userInfoStoreService } from "../../../stores/userInfoStore"
 import {useRouter} from "vue-router"
+import { onMounted, } from 'vue'
 import {ElMessageBox , ElMessage} from "element-plus"
+
+
 const userInfoStore = userInfoStoreService()
+
+
+// console.log(userInfoStore.info);
+
+onMounted(() => {
+    // userInfoStore
+    // const info = userInfoStore.getInfo()
+
+
+})
+
 // const getUser = async () => {
 //     userInfoStore.setInfo(result.data)
 // }
+
 const router = useRouter()
 const handleCommand = (command: string) => {
     //判断指令
